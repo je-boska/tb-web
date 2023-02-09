@@ -10,7 +10,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <h1 className='glitch-text text-5xl relative' title='Work in progress'>
+        <h1 className='glitch-text text-5xl relative' title='Wrok in rpogrsss'>
           Work in progress
         </h1>
       </main>
