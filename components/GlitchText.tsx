@@ -1,4 +1,4 @@
-export default function Glitch({
+export default function GlitchText({
   title,
   link,
 }: {

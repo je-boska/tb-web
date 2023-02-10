@@ -1,4 +1,4 @@
-import Glitch from '@/components/Glitch';
+import GlitchText from '@/components/GlitchText';
 import Head from 'next/head';
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
           </div>
         </div>
         {/* <div className='text-2xl'>
-          <Glitch title='This is a test' />
+          <GlitchText title='This is a test' />
         </div> */}
       </main>
     </>
