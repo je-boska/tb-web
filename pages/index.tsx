@@ -1,3 +1,4 @@
+import Glitch from '@/components/Glitch';
 import Head from 'next/head';
 
 export default function Home() {
@@ -10,9 +11,19 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <h1 className='glitch-text text-5xl relative' title='Wrok in rpogrsss'>
-          Work in progress
-        </h1>
+        <div className='flex h-[100vh] w-full items-center justify-center'>
+          <div className='w-96'>
+            <h1
+              className='glitch-text relative animate-glitch text-3xl before:absolute before:left-0 before:animate-glitchTop before:text-almostBlack before:content-[attr(title)] after:absolute after:left-0 after:animate-glitchBottom after:text-almostBlack after:content-[attr(title)] lg:text-5xl'
+              title='Wrok in rpogrsss'
+            >
+              Work in progress
+            </h1>
+          </div>
+        </div>
+        {/* <div className='text-2xl'>
+          <Glitch title='This is a test' />
+        </div> */}
       </main>
     </>
   );
