@@ -1,5 +1,18 @@
 import GlitchText from '@/components/GlitchText';
 import Head from 'next/head';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Suspense } from 'react';
+import { OrbitControls } from '@react-three/drei';
+
+const Tablet = () => {
+  const tablet = useLoader(GLTFLoader, '/tablet.gltf');
+  return (
+    <>
+      <primitive object={tablet.scene} />
+    </>
+  );
+};
 
 export default function Home() {
   return (
@@ -10,6 +23,15 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Canvas style={{ position: 'absolute', height: '100vh' }}>
+        <Suspense fallback={null}>
+          <Tablet />
+          <OrbitControls />
+          {/* <directionalLight intensity={2} position={[0, 3, 0]} castShadow /> */}
+          <pointLight intensity={0.3} position={[1, 1, 1]} castShadow />
+          <ambientLight intensity={0.1} />
+        </Suspense>
+      </Canvas>
       <main>
         <div className='flex h-[100vh] w-full items-center justify-center'>
           <div className='w-96'>
