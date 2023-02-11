@@ -1,8 +1,8 @@
 import GlitchText from '@/components/GlitchText';
 import Head from 'next/head';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 
 const Tablet = () => {
@@ -11,6 +11,23 @@ const Tablet = () => {
     <>
       <primitive object={tablet.scene} />
     </>
+  );
+};
+
+const BlinkingLight = () => {
+  const [redLightIntensity, setRedLightIntensity] = useState(0);
+
+  useFrame(() => {
+    setRedLightIntensity(Number(Math.random().toFixed(1)));
+  });
+
+  return (
+    <pointLight
+      color={[1, 0, 0]}
+      intensity={redLightIntensity}
+      position={[4, 3, 2]}
+      castShadow
+    />
   );
 };
 
@@ -27,9 +44,9 @@ export default function Home() {
         <Suspense fallback={null}>
           <Tablet />
           <OrbitControls />
-          {/* <directionalLight intensity={2} position={[0, 3, 0]} castShadow /> */}
-          <pointLight intensity={0.3} position={[1, 1, 1]} castShadow />
-          <ambientLight intensity={0.1} />
+          <directionalLight intensity={1} position={[0, 3, 0]} castShadow />
+          <BlinkingLight />
+          {/* <ambientLight intensity={0.1} /> */}
         </Suspense>
       </Canvas>
       <main>
