@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply bg-black;
+}
+
 .glitch-text:before {
   clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);

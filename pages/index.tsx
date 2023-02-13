@@ -2,14 +2,26 @@ import GlitchText from '@/components/GlitchText';
 import Head from 'next/head';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 
 const Tablet = () => {
   const tablet = useLoader(GLTFLoader, '/tablet.gltf');
+
   return (
     <>
       <primitive object={tablet.scene} />
+    </>
+  );
+};
+
+const Room = () => {
+  const room = useLoader(GLTFLoader, '/room.gltf');
+  room.scene.castShadow = true;
+
+  return (
+    <>
+      <primitive object={room.scene} />
     </>
   );
 };
@@ -25,7 +37,7 @@ const BlinkingLight = () => {
     <pointLight
       color={[1, 0, 0]}
       intensity={redLightIntensity}
-      position={[4, 3, 2]}
+      position={[-10, -4, 4]}
       castShadow
     />
   );
@@ -42,27 +54,16 @@ export default function Home() {
       </Head>
       <Canvas style={{ position: 'absolute', height: '100vh' }}>
         <Suspense fallback={null}>
-          <Tablet />
+          <Room />
           <OrbitControls />
-          <directionalLight intensity={1} position={[0, 3, 0]} castShadow />
+          {/* <directionalLight intensity={1} position={[0, 3, 0]} castShadow /> */}
           <BlinkingLight />
-          {/* <ambientLight intensity={0.1} /> */}
         </Suspense>
       </Canvas>
       <main>
         <div className='flex h-[100vh] w-full items-center justify-center'>
-          <div className='w-96'>
-            <h1
-              className='glitch-text relative animate-glitch text-3xl before:absolute before:left-0 before:animate-glitchTop before:text-almostBlack before:content-[attr(title)] after:absolute after:left-0 after:animate-glitchBottom after:text-almostBlack after:content-[attr(title)] lg:text-5xl'
-              title='Wrok in rpogrsss'
-            >
-              Work in progress
-            </h1>
-          </div>
+          <div className='w-96'></div>
         </div>
-        {/* <div className='text-2xl'>
-          <GlitchText title='This is a test' />
-        </div> */}
       </main>
     </>
   );
