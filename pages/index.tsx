@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Suspense, useState } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { Html, OrbitControls, useProgress } from '@react-three/drei';
 
 const Tablet = () => {
   const tablet = useLoader(GLTFLoader, '/tablet.gltf');
@@ -17,7 +17,11 @@ const Tablet = () => {
 
 const Room = () => {
   const room = useLoader(GLTFLoader, '/room.gltf');
-  room.scene.castShadow = true;
+  room.scene.traverse((node) => {
+    if (node.isObject3D) {
+      node.receiveShadow = true;
+    }
+  });
 
   return (
     <>
@@ -37,11 +41,16 @@ const BlinkingLight = () => {
     <pointLight
       color={[1, 0, 0]}
       intensity={redLightIntensity}
-      position={[-10, -4, 4]}
+      position={[1, -2, 4]}
       castShadow
     />
   );
 };
+
+function Loader() {
+  const { progress } = useProgress();
+  return <Html className='text-white'>{progress.toFixed(0)}%</Html>;
+}
 
 export default function Home() {
   return (
@@ -52,12 +61,26 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Canvas style={{ position: 'absolute', height: '100vh' }}>
-        <Suspense fallback={null}>
+      <Canvas
+        style={{ position: 'absolute', height: '100vh' }}
+        camera={{ position: [4, 4, 1.5] }}
+        shadows
+      >
+        <Suspense fallback={<Loader />}>
           <Room />
           <OrbitControls />
-          {/* <directionalLight intensity={1} position={[0, 3, 0]} castShadow /> */}
-          <BlinkingLight />
+          {/* <directionalLight
+            intensity={5}
+            position={[2.5, 3.5, 2.5]}
+            castShadow
+          /> */}
+          {/* <BlinkingLight /> */}
+          <pointLight
+            color={[0.7, 1, 0.7]}
+            intensity={1}
+            position={[2, -2, 4]}
+            castShadow
+          />
         </Suspense>
       </Canvas>
       <main>
