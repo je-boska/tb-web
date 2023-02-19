@@ -15,6 +15,20 @@ const Tablet = () => {
   );
 };
 
+const Column = () => {
+  const column = useLoader(GLTFLoader, '/column.gltf');
+
+  column.scene.traverse((node) => {
+    node.castShadow = true;
+  });
+
+  return (
+    <>
+      <primitive object={column.scene} />
+    </>
+  );
+};
+
 const Room = () => {
   const room = useLoader(GLTFLoader, '/room.gltf');
   room.scene.traverse((node) => {
@@ -67,7 +81,8 @@ export default function Home() {
         shadows
       >
         <Suspense fallback={<Loader />}>
-          <Room />
+          {/* <Room /> */}
+          <Column />
           <OrbitControls />
           {/* <directionalLight
             intensity={5}
@@ -76,11 +91,15 @@ export default function Home() {
           /> */}
           {/* <BlinkingLight /> */}
           <pointLight
-            color={[0.7, 1, 0.7]}
+            color={[1, 1, 0.7]}
             intensity={1}
-            position={[2, -2, 4]}
+            position={[3, 2, 7]}
             castShadow
           />
+          <mesh rotation={[-1.5, 0, 0]} receiveShadow>
+            <planeGeometry args={[100, 100, 100]} />
+            <meshStandardMaterial color='gray' />
+          </mesh>
         </Suspense>
       </Canvas>
       <main>
