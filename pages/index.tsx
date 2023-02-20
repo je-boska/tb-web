@@ -100,6 +100,10 @@ export default function Home() {
             <planeGeometry args={[100, 100, 100]} />
             <meshStandardMaterial color='gray' />
           </mesh>
+          <mesh position={[4, 1, 1]} receiveShadow castShadow>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color='gray' />
+          </mesh>
         </Suspense>
       </Canvas>
       <main>
