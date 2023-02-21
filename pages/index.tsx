@@ -1,5 +1,5 @@
-import GlitchText from '@/components/GlitchText';
 import Head from 'next/head';
+import Column from '@/components/Column';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Suspense, useState } from 'react';
@@ -11,20 +11,6 @@ const Tablet = () => {
   return (
     <>
       <primitive object={tablet.scene} />
-    </>
-  );
-};
-
-const Column = () => {
-  const column = useLoader(GLTFLoader, '/column.gltf');
-
-  column.scene.traverse((node) => {
-    node.castShadow = true;
-  });
-
-  return (
-    <>
-      <primitive object={column.scene} />
     </>
   );
 };
